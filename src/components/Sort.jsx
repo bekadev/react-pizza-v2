@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 
 const Sort = () => {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
   const [listActive, setListActive] = useState(0)
   const list = ['популярности', 'цене', 'алфавиту']
 
   const listActiveHandler = (index) => {
     setListActive(index)
-    setIsVisible(false)
+    setIsVisible(!isVisible)
   }
 
   return (

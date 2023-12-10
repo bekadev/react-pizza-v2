@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const PizzaBlock = ({title, price, imageUrl, sizes, types}) => {
+const Index = ({title, price, imageUrl, sizes, types}) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
   const typeNames = ['тонкое', 'традиционное']
@@ -44,4 +44,4 @@ const PizzaBlock = ({title, price, imageUrl, sizes, types}) => {
   </div>);
 };
 
-export default PizzaBlock;
+export default Index;
