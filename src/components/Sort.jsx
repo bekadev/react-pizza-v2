@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 
-const Sort = () => {
+const Sort = ({sort, setSort}) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [listActive, setListActive] = useState(0)
-  const list = ['популярности', 'цене', 'алфавиту']
+  const list = [
+    {name: 'популярности (DESC)', sort: 'rating'},
+    {name: 'популярности (ASC)', sort: '-rating'},
+    {name: 'цене (DESC)', sort: 'price'},
+    {name: 'цене (ASC)', sort: '-price'},
+    {name: 'алфавиту (DESC)', sort: 'title'},
+    {name: 'алфавиту (ASC)', sort: '-title'},
+  ]
 
-  const listActiveHandler = (index) => {
-    setListActive(index)
+  const listActiveHandler = (i) => {
+    setSort(i)
     setIsVisible(!isVisible)
   }
 
@@ -26,13 +32,13 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{list[listActive]}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
       </div>
       {isVisible && <div className="sort__popup">
         <ul>
-          {list.map((val, index) => {
-            return <li onClick={() => listActiveHandler(index)} key={index}
-                       className={listActive === index ? 'active' : ''}>{val}</li>
+          {list.map((val, i) => {
+            return <li onClick={() => listActiveHandler(val)} key={i}
+                       className={sort.sort === val.sort ? 'active' : ''}>{val.name}</li>
           })}
         </ul>
       </div>}
