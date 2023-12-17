@@ -1,9 +1,29 @@
-import React, {useContext} from 'react';
+import React, {useCallback, useContext, useRef, useState} from 'react';
 import s from './search.module.scss'
+import debounce from 'lodash.debounce'
 import {SearchContext} from "../../App";
 
 const Search = () => {
-  const {searchValue, setSearchValue} = useContext(SearchContext)
+  const [value, setValue] = useState('')
+  const {setSearchValue} = useContext(SearchContext)
+  const inputRef = useRef()
+
+  const onClickClear = () => {
+    setSearchValue('')
+    setValue('')
+    inputRef.current.focus()
+  }
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str)
+    }, 250),
+    []
+  )
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value)
+    updateSearchValue(e.target.value)
+  }
 
   return (
     <div className={s.root}>
@@ -13,10 +33,11 @@ const Search = () => {
         <circle cx="11" cy="11" r="8"/>
         <line x1="21" x2="16.65" y1="21" y2="16.65"/>
       </svg>
-      <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className={s.input} type="text"
+      <input ref={inputRef} value={value} onChange={onChangeInput} className={s.input}
+             type="text"
              placeholder='Поиск пиццы...'/>
-      {searchValue && (
-        <svg onClick={() => setSearchValue('')} className={s.clearIcon} height="18x" id="Layer_1" version="1.1"
+      {value && (
+        <svg onClick={onClickClear} className={s.clearIcon} height="18x" id="Layer_1" version="1.1"
              viewBox="0 0 512 512"
              width="18px">
           <path
