@@ -4,9 +4,10 @@ import logoSVG from '../assets/img/pizza-logo.svg'
 import {Link} from "react-router-dom";
 import Search from "./Search";
 import {useSelector} from "react-redux";
+import {selectCard} from "../redux/slices/cardSlice";
 
 const Header = () => {
-    const {items, totalPrice} = useSelector(state => state.card)
+    const {items, totalPrice} = useSelector(selectCard)
     const totalCount = items.reduce((sum, item) => sum + item.count, 0)
 
     return (
