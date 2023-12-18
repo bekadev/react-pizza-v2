@@ -7,7 +7,7 @@ import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategoryId, setFilters, setPageCount} from "../redux/slices/filterSlice";
 import qs from 'qs'
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {fetchPizzas} from "../redux/slices/pizzasSlice";
 
 const Home = () => {
@@ -84,8 +84,9 @@ const Home = () => {
           <p>Не удалось получить пиццы.</p>
         </div> : <div className="content__items">
           {
-            status === 'loading' ? [...new Array(6)].map((_, index) => <Skeleton key={index}/>) : items.map(obj =>
-              <PizzaBlock {...obj} key={obj.id}/>)
+            status === 'loading'
+              ? [...new Array(6)].map((_, index) => <Skeleton key={index}/>)
+              : items.map(obj => <Link key={obj.id} to={`/pizza/${obj.id}`}><PizzaBlock {...obj}/></Link>)
           }
         </div>
       }

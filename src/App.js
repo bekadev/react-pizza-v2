@@ -1,24 +1,24 @@
 import './scss/app.scss';
-import Header from "./components/Header";
 import Home from "./pages/Home";
 import {Route, Routes} from "react-router-dom";
 import React from "react";
 import NotFound from "./pages/NotFound";
 import Card from "./pages/Card";
-
+import FullPizza from "./pages/FullPizza";
+import MainLayouts from "./layouts/MainLayouts";
 
 function App() {
 
-  return (<div className="wrapper">
-    <Header/>
-    <div className="content">
-      <Routes>
+  return (
+    <Routes>
+      <Route path={'/'} element={<MainLayouts/>}>
         <Route path={'/'} element={<Home/>}/>
         <Route path={'/cart'} element={<Card/>}/>
+        <Route path={'/pizza/:id'} element={<FullPizza/>}/>
         <Route path={'*'} element={<NotFound/>}/>
-      </Routes>
-    </div>
-  </div>);
+      </Route>
+    </Routes>
+  )
 }
 
 export default App;
